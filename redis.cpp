@@ -35,7 +35,7 @@ string de_serial(string value) {
     if (value.empty()) return "";
 
     char type_resp = value[0];
-    string extract_value = value.substr(1, value.find("\r\n"));
+    string extract_value = value.substr(1, value.find("\r\n") - 1);
 
     // check for simple string, error, int
     if (type_resp == '+' || type_resp == '-' || type_resp == ':') {
@@ -52,7 +52,11 @@ string de_serial(string value) {
     int position_end = stoi(value.substr(1, value.find('\r') - 1));
 
     if (type_resp == '$') { 
-        return value.substr(find_n + 1, position_end);
+        if ( position_end == 0) {
+            return "(empty)";
+        } else {
+            return value.substr(find_n + 1, position_end);
+        }
     }
     
     // string get_command = "*2\r\n$3\r\nget\r\n$3\r\nkey\r\n";
@@ -117,8 +121,8 @@ int main() {
     string de_error_response = de_serial(error_response);
 
 
-    // string empty_bulk_string = "$0\r\n\r\n";
-    // string de_empty_bulk_string = de_serial(empty_bulk_string);
+    string empty_bulk_string = "$0\r\n\r\n";
+    string de_empty_bulk_string = de_serial(empty_bulk_string);
 
     string simple_string = "+hello world\r\n";
     string de_simple_string = de_serial(simple_string);
@@ -137,6 +141,7 @@ int main() {
     cout << '\n' << de_null_bulk_string;
     cout << '\n' << de_null_array_string;
     cout << '\n' << de_bulk_string;
+    cout << '\n' << de_empty_bulk_string;
     cout << '\n' << de_ping_command;
     cout << '\n' << de_echo_command;
     cout << '\n' << de_get_command;

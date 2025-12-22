@@ -1,9 +1,41 @@
 #include <cstdio>
+#include <string>
 #include <valarray>
 #include <vector>
 
 #include "resp_deserializer.h"
 #include <iostream>
+
+
+void raw_string_print(string value) {
+    for (char c : value) {
+        if (c == '\r') cout << "\\r";
+        else if (c == '\n') cout << "\\n";
+        else cout << c;
+    }
+    cout << endl;
+}
+
+string serialize_simple_string(string value) {
+        return "+" + value + "\r\n";
+}
+
+
+string serialize_error_string(string value) {
+        return "-" + value + "\r\n";
+}
+
+string serialize_int(int value) {
+        return ":" + to_string(value) + "\r\n";
+}
+
+string serialize_bulk_string(string value) {
+        return "$" + to_string(value.length()) + "\r\n" + value + "\r\n";
+}
+
+string serialize_array(string value) {
+    
+}
 
 
 int main() {
@@ -52,7 +84,15 @@ int main() {
     cout << '\n' << de_empty_bulk_string;
     cout << '\n' << de_ping_command;
     cout << '\n' << de_echo_command;
-    cout << '\n' << de_get_command;
+    cout << '\n' << de_get_command << '\n';
+
+
+
+    raw_string_print(serialize_simple_string(de_ok_response));
+    raw_string_print(serialize_error_string(de_error_response));
+    raw_string_print(serialize_int(stoi(de_int_string)));
+    raw_string_print(serialize_bulk_string(de_bulk_string));
+    
 
 
 
@@ -60,5 +100,4 @@ int main() {
     //std::slice s(0, 6, 1);
 
 
-    cout << endl;
 }

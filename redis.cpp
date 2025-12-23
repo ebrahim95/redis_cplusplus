@@ -34,7 +34,7 @@ string serialize_bulk_string(string value) {
 }
 
 string serialize_array(string value) {
-    
+
 }
 
 
@@ -53,6 +53,8 @@ int main() {
 
     string get_command = "*2\r\n$3\r\nget\r\n$3\r\nkey\r\n";
     string de_get_command = de_serial(get_command);
+
+    string mixed_command = "*4\r\n$3\r\nget\r\n:67\r\n$3\r\nkey\r\n:54\r\n";
 
     string ok_response = "+OK\r\n";
     string de_ok_response = de_serial(ok_response);

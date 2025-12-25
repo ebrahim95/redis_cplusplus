@@ -1,4 +1,5 @@
 #include "resp_deserializer.h"
+#include <cstddef>
 #include <cstring>
 #include <stdlib.h>
 #include <string>
@@ -101,7 +102,14 @@ string de_serial(string value) {
             }
 
             if (value.find(':', last_number_pos) != string::npos) {
-                return "";
+                size_t position_number_index = value.find(':', last_number_pos);
+                int position_number_index_num = static_cast<int>(position_number_index);
+
+                last_number_pos += position_number_index_num + 1;
+                element_found += 1;
+
+                size_t position_r = value.find('\r', position_number_index_num);
+                completed_string += value.substr(position_number_index_num + 1, position_r - 1 - position_number_index_num) + " ";
             }
 
         }

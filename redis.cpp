@@ -55,6 +55,7 @@ int main() {
     string de_get_command = de_serial(get_command);
 
     string mixed_command = "*4\r\n$3\r\nget\r\n:67\r\n$3\r\nkey\r\n:54\r\n";
+    string de_mixed_command = de_serial(mixed_command);
 
     string ok_response = "+OK\r\n";
     string de_ok_response = de_serial(ok_response);
@@ -88,14 +89,15 @@ int main() {
     cout << '\n' << de_echo_command;
     cout << '\n' << de_get_command << '\n';
 
-
-
-    raw_string_print(serialize_simple_string(de_ok_response));
+raw_string_print(de_ping_command);
+raw_string_print(de_echo_command);
+raw_string_print(de_mixed_command);
+  /*   raw_string_print(serialize_simple_string(de_ok_response));
     raw_string_print(serialize_error_string(de_error_response));
     raw_string_print(serialize_int(stoi(de_int_string)));
     raw_string_print(serialize_bulk_string(de_bulk_string));
     
-
+ */
 
 
     // Using the <valarray> header to slice array

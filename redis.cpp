@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <cstdio>
 #include <string>
 #include <valarray>
@@ -33,7 +34,58 @@ string serialize_bulk_string(string value) {
         return "$" + to_string(value.length()) + "\r\n" + value + "\r\n";
 }
 
-string serialize_array(string value) {
+
+bool isConvertibleToInt (const string &value) {
+    try {
+        stoi(value);
+        return true;
+    } catch (const invalid_argument& e) {
+        return false;
+    }
+}
+
+string serialize_array(string &value) {
+    // create for loop to count elements 
+    // use space as seperator 
+    // use that as a size counter
+    // we need to track the size of every string 
+    // while I am going through the string I could add the string in a variable.
+    // pseduo code
+    // total_lenght_of_array = 0;
+    // while (!end_of_string)
+    //      for (let i; i < length_string; i++) {
+    //          if (!space) {
+    //              counter++
+    //          } elsif (space) {
+    //              counter = 0; 
+    //          }
+
+    // new solution 
+    // use serialize int and bulk string functions
+    // break up the deserialized string array functions into different string in an array
+    // cycle through them and them to a completed array
+
+    int length_of_string = value.length();
+    string completed_string = ""; 
+    int total_count = 0;
+    int count = 0;
+    bool string_or_not = false;
+    for (size_t i = 0; i < length_of_string; i++) {
+        if (value[i] == ' ') {
+            completed_string += "\r\n";
+            count = 0;
+        } else if (isConvertibleToInt(&value[i])) {
+            string_or_not = true; 
+            total_count += 1;
+            count += 1; 
+        } else if (value[i]) {
+            total_count += 1;
+            count += 1;
+        }
+    }
+
+    string final_string = "*count\r\n" + completed_string; 
+    
 
 }
 

@@ -101,19 +101,24 @@ string de_serial(string value) {
 
             }
 
+            // Look for the next integer marker ':' starting from last_number_pos
             if (value.find(':', last_number_pos) != string::npos) {
+                // Find the position of the ':' character
                 size_t position_number_index = value.find(':', last_number_pos);
                 int position_number_index_num = static_cast<int>(position_number_index);
 
+                // Update last_number_pos to search after this ':' in next iteration
                 last_number_pos += position_number_index_num + 1;
+                // Increment the count of elements found
                 element_found += 1;
 
+                // Find the position of '\r' after the ':' to get the end of the integer
                 size_t position_r = value.find('\r', position_number_index_num);
+                // Extract the integer value and append it to the result with a space
                 completed_string += value.substr(position_number_index_num + 1, position_r - 1 - position_number_index_num) + " ";
             }
 
         }
-      
         // Return the concatenated string of all array elements
         return completed_string; 
     }

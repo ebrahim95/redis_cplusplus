@@ -1,0 +1,77 @@
+# Compiled executables
+redis
+redis_lite
+redis_server
+*.exe
+
+# Object files
+*.o
+*.obj
+
+# Static libraries
+*.a
+*.lib
+
+# Shared libraries
+*.so
+*.dylib
+*.dll
+
+# Debug files
+*.dSYM/
+*.pdb
+
+# CMake build files
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.cmake
+
+# Note: Makefile is NOT ignored - we want to keep our custom Makefile in git
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Core dumps
+core
+core.*
+
+# Redis data files (if you implement persistence)
+dump.rdb
+*.rdb
+*.aof
+
+# Test files
+test_*
+*_test
+
+# Backup files
+*.bak
+*.backup
+
+# Compiler-specific
+*.gch
+*.pch

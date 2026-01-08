@@ -65,27 +65,50 @@ string serialize_array(string &value) {
     // break up the deserialized string array functions into different string in an array
     // cycle through them and them to a completed array
 
+    vector<string> break_up_string = {};
     int length_of_string = value.length();
     string completed_string = ""; 
+
     int total_count = 0;
     int count = 0;
     bool string_or_not = false;
     for (size_t i = 0; i < length_of_string; i++) {
-        if (value[i] == ' ') {
-            completed_string += "\r\n";
-            count = 0;
-        } else if (isConvertibleToInt(&value[i])) {
-            string_or_not = true; 
-            total_count += 1;
-            count += 1; 
-        } else if (value[i]) {
-            total_count += 1;
+        if (value[i] != ' ') {
+            // or use value.substr(i, 1);
             count += 1;
+            completed_string += string(1, value[i]);
+        } else if (value[i] == ' ') {
+            if (isConvertibleToInt(completed_string)) {
+                completed_string = ":" + completed_string + "\r\n";
+            } else {
+                completed_string = "$" + to_string(count) + "\r\n" + completed_string + "\r\n";
+            }
+            break_up_string.push_back( completed_string);
+            total_count += 1; 
+            count = 0;
+            completed_string = "";
+        }
+
+        if (i + 1 == length_of_string) {
+            if (isConvertibleToInt(completed_string)) {
+                completed_string = ":" + completed_string + "\r\n";
+            } else {
+                completed_string = "$" + to_string(count) + "\r\n" + completed_string + "\r\n";
+            }
+            total_count += 1;
+            break_up_string.push_back(completed_string);
         }
     }
 
-    string final_string = "*count\r\n" + completed_string; 
+    break_up_string.insert(break_up_string.begin(), "*" + to_string(total_count) + "\r\n");
+
+    string final_string = "";
+    for (string value : break_up_string) {
+       // cout << value << '\n';
+       final_string += value;
+    }
     
+    return final_string;
 
 }
 
@@ -151,6 +174,8 @@ raw_string_print(de_mixed_command);
     
  */
 
+ string raw_string = "get 67 key 54";
+ raw_string_print(serialize_array(raw_string));
 
     // Using the <valarray> header to slice array
     //std::slice s(0, 6, 1);

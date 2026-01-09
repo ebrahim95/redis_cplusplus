@@ -2,7 +2,7 @@
 CXX = clang++
 CXXFLAGS = -std=c++20 -Wall -Wextra
 TARGET = redis
-SOURCES = redis.cpp resp_deserializer.cpp
+SOURCES = redis.cpp resp_deserializer.cpp resp_serializer.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # Default target (runs when you type 'make')

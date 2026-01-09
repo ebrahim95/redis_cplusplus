@@ -18,6 +18,7 @@ using namespace std;
 "+hello world\r\n"                          // Simple string response
 */
 
+// TODO refactor function
 string de_serial(string value) {
 
     // Return empty string if input is empty

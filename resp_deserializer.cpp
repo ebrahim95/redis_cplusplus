@@ -3,7 +3,6 @@
 #include <cstring>
 #include <stdlib.h>
 #include <string>
-#include <iostream>
 using namespace std;
 
 //Test cases 
@@ -59,7 +58,7 @@ string de_serial(string value) {
     
     // bulk array string     
     // Extract the number of elements in the array from the first character after '*'
-    int loop_count = value[1] - '0';
+    int loop_count = stoi(extract_value);
     string completed_string = "";
 
     // string get_command = "*2\r\n$3\r\nget\r\n$3\r\nkey\r\n";
